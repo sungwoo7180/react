@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <!--
+        [ prevState를 활용한 setState 함수 사용 ]
+        this.setState()를 사용하면 비동기방식으로 state가 백그라운드에서 업데이트 된다.
+        하나의 이벤트 핸들러에서 여러 번 setState() 호출한다고 해도 동기적으로 누적해서 변화를 취급하지 못한다.
+        이를 해결할 방법은 변경할 state 객체 대신 함수를 인자로 전달하는 것이다.
+        전달하는 콜백함수의 첫 번째 인자는 이전 상태 값을 가리키는 prevState이며, 두 번째 인자는 현재 컴포넌트의 props이다.
+        (만약 props가 필요하지 않은 상황이라면 생략 가능하다.)
+    -->
+
+    <script type="text/babel">
+
+        class Counter extends React.Component {
+            state = {
+                number: 7
+            };
+
+            render() {
+                // console.log(this);
+                const { number } = this.state;
+
+                return (
+                    <>
+                        <h1 style={number < 0 ? { color: 'red' } : { color: 'blue' }}>
+                            Count : {number}
+                        </h1>
+                        <button onClick={() => this.setState({ number: number - 1 })}>-1</button>
+                        <button
+                            onClick={() => {
+                                // this.setState({ number: number + 1 });
+                                // console.log("first", number);
+                                // this.setState({ number: number + 1 });
+                                // console.log("second", number);
+
+                                this.setState((prevState, props) => {
+                                    return {
+                                        number: prevState.number + 1
+                                    };
+                                });
+
+                                this.setState((prevState, props) => {
+                                    return {
+                                        number: prevState.number + 1
+                                    };
+                                });
+
+                                this.setState((prevState) => {
+                                    return {
+                                        number: prevState.number + 1
+                                    };
+                                });
+
+                                this.setState(prevState => ({ number: prevState.number + 1 }));
+                            }}
+                        >
+                            +1
+                        </button>
+                    </>
+                );
+            }
+        }
+
+        ReactDOM.createRoot(document.querySelector('#root')).render(<Counter />);
+    </script>
+</body>
+
+</html>

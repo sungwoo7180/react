@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <!--
+        [ 컴포넌트 합성 ]
+        컴포넌트는 자신의 출력에 따른 컴포넌트를 참조할 수 있다.
+        컴포넌트는 재사용 가능한 크기로 작게 유지해야 하며, 순수 함수처럼 작성되어야 한다.
+    -->
+
+    <script type="text/babel">
+        let name = "다람쥐";
+        let age = 900;
+        let job = "teacher";
+        let email = "squirrel@ohgiraffers.com";
+
+        const user = { name, age, job, email };
+
+        function NameCard() {
+            return <h1>{user.name}</h1>;
+        }
+
+        function AgeCard() {
+            return <h3 style={{ color: 'green' }}>{user.age}</h3>;
+        }
+
+        function JobCard() {
+            return <h3 style={{ color: 'red' }}>{user.job}</h3>;
+        }
+
+        function EmailCard() {
+            return <h3 style={{ backgroundColor: 'yellow' }}>{user.email}</h3>;
+        }
+
+        function UserInfo() {
+            return (
+                <div style={{ width: 300, border: '1px solid pink' }}>
+                    <NameCard />
+                    <AgeCard />
+                    <JobCard />
+                    <EmailCard />
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.querySelector('#root')).render(<UserInfo />);
+    </script>
+</body>
+
+</html>

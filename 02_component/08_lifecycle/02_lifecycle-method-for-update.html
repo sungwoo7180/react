@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script src='https://unpkg.com/react@18/umd/react.development.js' crossorigin></script>
+    <script src='https://unpkg.com/react-dom@18/umd/react-dom.development.js' crossorigin></script>
+    <script src='https://unpkg.com/@babel/standalone/babel.min.js'></script>
+</head>
+
+<body>
+    <div id='root'></div>
+    <!--
+        [ 컴포넌트 업데이트 생명주기에 대한 업데이트 기준 ]
+        1. props 변경
+        2. state 변경
+        3. 부모 컴포넌트 리렌더링
+        4. this.forceUpdate로 강제 렌더링 트리거 (render 내에서는 가급적 사용하지 않아야 함)
+
+        위의 1~3의 경우 호출되는 생명주기 메소드 순서는 동일하며, 아래와 같다.
+        getDerivedStateFromProps -> shouldComponentUpdate -> render -> getSnapshotBeforeUpdate -> componentDidUpdate
+
+        위의 4의 경우는 바로 render 함수를 호출한다.
+    -->
+    <script type='text/babel'>
+        class TimePrinter extends React.Component {
+
+            constructor(props) {
+                console.log('constructor');
+                super(props);
+
+                this.state = {
+                    now: new Date().toLocaleTimeString()
+                };
+            }
+
+            /* 1. props의 값을 state에 넣을 때 사용하는 메소드 */
+            static getDerivedStateFromProps(nextProps, nextState) {
+                console.log('getDerivedStateFromProps');
+
+                // if(nextProps.text !== nextState.prevProp) {
+                //     return {now: nextProps.text};
+                // }
+
+                return null;
+            }
+
+            /* 2. 컴포넌트가 리렌더링을 할지 말지 결정하는 메소드 (= render() 호출 유무 결정) */
+            shouldComponentUpdate(nextProps, nextState) {
+                /*  
+                    자주 사용되지 않는 생명주기 메소드이다.
+                    주로 성능 최적화를 목적으로 하며, 상황에 따라 리렌더링을 방지할 목적으로 사용한다.
+                */
+
+                console.log('shouldComponentUpdate');
+
+                /* 
+                    반드시 boolean을 반환해야 하며,
+                    false 반환 시 render()를 포함한 이후 생명주기 메소드 호출을 하지 않는다. 
+                */
+                return true;
+            }
+
+            /* 3. 컴포넌트를 렌더링하는 메소드 */
+            render() {
+                console.log('render');
+
+                return (
+                    <>
+                        <button
+                            onClick={() => this.setState({ now: new Date().toLocaleTimeString() })}
+                        >
+                            What time is it now?!
+                        </button>
+                        <h1>{this.state.now}</h1>
+                    </>
+                );
+            }
+
+            /* 4. 컴포넌트의 변화를 실제 DOM에 반영하기 직전에 호출하는 메소드 */
+            getSnapshotBeforeUpdate(prevProps, prevState) {
+                console.log('getSnapshotBeforeUpdate');
+
+                // return null;
+
+                /* 반환하는 객체는 componentDidUpdate의 3번째 인수로 전달된다. */
+                return {
+                    message: 'I am Snapshot'
+                };
+            }
+
+            /* 5. 컴포넌트 업데이트 작업이 끝난 후 호출하는 메소드 */
+            componentDidUpdate(prevProps, prevState, snapshot) {
+                /*
+                    업데이트가 끝난 직후이므로 DOM관련 처리를 해도 되며,
+                    컴포넌트가 이전에 가졌던 데이터를 prevProps, prevState로 접근할 수 있다. 
+                    또한, getSnapshotBeforeUpdate에서 반환하는 값을 세 번째 파라미터로 전달받을 수도 있다.
+                */
+                console.log('componentDidUpdate');
+                console.log('snapshot', snapshot);
+            }
+        }
+
+        ReactDOM.createRoot(document.querySelector('#root')).render(<TimePrinter />);
+    </script>
+</body>
+
+</html>

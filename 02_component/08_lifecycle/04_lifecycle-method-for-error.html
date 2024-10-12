@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script src='https://unpkg.com/react@18/umd/react.development.js' crossorigin></script>
+    <script src='https://unpkg.com/react-dom@18/umd/react-dom.development.js' crossorigin></script>
+    <script src='https://unpkg.com/@babel/standalone/babel.min.js'></script>
+</head>
+
+<body>
+    <div id='root'></div>
+    <script type='text/babel'>
+
+        class TimePrinter extends React.Component {
+            state = {
+                now: new Date().toLocaleTimeString()
+            };
+
+            render() {
+                return (
+                    <>
+                        <button
+                            onClick={() => this.setState({ now: new Date().toLocaleTimeString() })}
+                        >
+                            What time is it now?!
+                        </button>
+                        <h1>{this.states.now}</h1>
+                    </>
+                );
+            }
+        }
+
+        class ErrorBoundary extends React.Component {
+            state = {
+                hasError: false
+            };
+
+            /* 자손 컴포넌트에서 오류 발생 시 자동 호출되는 메소드 */
+            static getDerivedStateFromError(error) {
+                /* 
+                    이 메소드는 매개변수로 오류를 전달받고, 갱신된 state값을 반드시 반환해야 한다.
+                    주의할 점은 render 단계에서 호출되므로 영향을 끼치는 부수적 효과를 발생시키면 안된다.
+                */
+                console.log('getDerivedStateFromError');
+
+                return { hasError: true };
+            }
+
+            /* 자손 컴포넌트에서 오류가 발생하면 동작하는 메소드 */
+            componentDidCatch(error, info) {
+                /* 
+                    error와 info 두 개의 매개변수를 전달받는다.
+                    - error : 발생한 오류 정보
+                    - info : 오류를 발생시킨 컴포넌트 정보를 포함한 객체
+
+                    따라서 오류 로그를 기록하는 특정 메소드를 호출하는 등의 일을 처리할 수 있다.
+                */
+                console.log('componentDidCatch');
+                console.log({error, info});
+            }
+
+            render() {
+                if(this.state.hasError) {
+                    return (
+                        <>
+                            <h1>Error 발생!!!!!!!!!!</h1>
+                            <h3>??? : 말도 안 돼! 내 코드에서 에러라닛!!!</h3>
+                        </>
+                    );
+                }
+                return this.props.children;
+            }
+        }
+
+        class App extends React.Component {
+            render() {
+                return (
+                    <ErrorBoundary>
+                        <TimePrinter />
+                    </ErrorBoundary>
+                );
+            }
+        }
+
+        ReactDOM.createRoot(document.querySelector('#root')).render(<App />);
+    </script>
+</body>
+
+</html>

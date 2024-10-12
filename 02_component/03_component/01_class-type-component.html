@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        /*
+            [ 클래스형 컴포넌트 ]
+            ES6에서 제공되는 클래스 문법을 이용해 렌더링될 컴포넌트를 정의하는 방법을 제공한다.
+            render() 함수는 반드시 작성되어야 하며, 반환값으로는 렌더링될 리액트 엘리먼트를 정의한다. (일반적으로 JSX 사용)
+            JSX만으로도 리액트 엘리먼트를 정의할 수 있지만 클래스형으로 컴포넌트를 작성하면 여러 장점이 있다.
+            중복되는 엘리먼트를 추상화해서 컴포넌트로 작성하고, 작성된 컴포넌트를 재사용하는 것이 리액트가 추구하는 한 가지 방향이다.
+        */
+
+        /*
+            [ 클래스형 컴포넌트 작성 규칙 ]
+            1. 앞글자 대문자
+            2. (렌더링 시) 닫기 태그 작성
+            3. 클래스명과 동일하게 렌더링
+        */
+        class Title extends React.Component {
+            render() {
+                return (
+                    <h1>Class Component</h1>
+                );
+            }
+        }
+
+        ReactDOM.createRoot(document.querySelector('#root')).render(<Title />);
+    </script>
+</body>
+
+</html>

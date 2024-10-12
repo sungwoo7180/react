@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script src='https://unpkg.com/react@18/umd/react.development.js' crossorigin></script>
+    <script src='https://unpkg.com/react-dom@18/umd/react-dom.development.js' crossorigin></script>
+    <script src='https://unpkg.com/@babel/standalone/babel.min.js'></script>
+</head>
+
+<body>
+    <div id='root'></div>
+    <script type='text/babel'>
+
+        const { useState } = React;
+
+        function App() {
+
+            const [members, setMembers] = useState([
+                {id: 1, name: '다람쥐'},
+                {id: 2, name: '고릴라'},
+                {id: 3, name: '호랑이'},
+                {id: 4, name: '개구리'}
+            ]);
+            const [inputName, setInputName] = useState('');
+            const [nextId, setNextId] = useState(5);
+
+            const onChangeHandler = e => setInputName(e.target.value);
+
+            const onClickHandler = () => {
+                const newMembers = members.concat({
+                    id: nextId,
+                    name: inputName
+                });
+
+                setMembers(newMembers);
+                setNextId(nextId + 1);
+                setInputName('');
+            };
+
+            const onRemove = id => {
+                /*
+                    [ arr.filter(callback) ] (참고: 배열 문법)
+                    기존 배열에서 callback 함수를 각 요소마다 실행하고 true를 반환하는 요소들만으로 다시 배열을 정의하여 반환한다.
+                */
+
+                const removeMembers = members.filter(member => member.id !== id);
+                setMembers(removeMembers);
+            };
+
+            return (
+                <>
+                    <input type="text" value={inputName} onChange={onChangeHandler} />
+                    <button onClick={onClickHandler}>인재 영입</button>
+                    <ul>
+                        {members.map(member => <li key={member.id} onDoubleClick={() => onRemove(member.id)}>{member.name}</li>)}
+                    </ul>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.querySelector('#root')).render(<App />);
+
+    </script>
+</body>
+
+</html>

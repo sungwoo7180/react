@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <!-- 이벤트 핸들러로 등록할 메소드를 화살표 함수로 하면 자동 바인드 처리해준다. -->
+
+    <script type="text/babel">
+
+        class EventComponent extends React.Component {
+
+            state = {
+                message: ''
+            }
+
+            onChangeHandler = (e) => {
+                this.setState({ message: e.target.value });
+            }
+
+            onClickHandler = (e) => {
+                alert(this.state.message + "전송!");
+                this.setState({ message: '' });
+            }
+
+            render() {
+                return (
+                    <>
+                        <h1>Event Handling (Handler method 분리)</h1>
+                        <input
+                            type="text"
+                            name="message"
+                            placeholder="input text..."
+                            value={this.state.message}
+                            onChange={this.onChangeHandler}
+                        />
+                        <button onClick={this.onClickHandler}>OK</button>
+                    </>
+                );
+            }
+        }
+
+        ReactDOM.createRoot(document.querySelector('#root')).render(<EventComponent />);
+    </script>
+</body>
+
+</html>

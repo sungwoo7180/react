@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script>
+        // console.log(React);
+
+        /*
+            React.createElement() 를 사용해 엘리먼트를 만들 수 있다.
+            - 첫 번째 인자 : 만들고자 하는 엘리먼트의 타입을 문자열로 정의한다.
+            - 두 번째 인자 : 만드는 엘리먼트의 프로퍼티를 표현한다.
+            - 세 번째 인자 : 엘리먼트의 자식 노드를 표현한다.
+    
+            주의사항 : class 어트리뷰트에 해당하는 값은 className이라는 프로퍼티 키를 써야 한다.
+        */
+        
+        const greetingElement = React.createElement('h1', { id: 'greeting', className: 'greeting' }, 'Hello React!');
+        // <h1 id='greeting' class='greeting'>Hello React!</h1>
+
+        const textElement = React.createElement('h3', { id: 'name' }, 'React가 매우 기대되는 다람쥐입니다 :3');
+        // <h3 id="name">React가 매우 기대되는 다람쥐입니다 :3</h3>
+        
+        // const domContainer = document.querySelector('#root');
+        // const root = ReactDOM.createRoot(domContainer);
+        // root.render(greetingElement);
+
+        ReactDOM.createRoot(document.querySelector('#root')).render([greetingElement, textElement]);
+
+    </script>
+</body>
+
+</html>

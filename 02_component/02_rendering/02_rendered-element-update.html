@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <!--
+        리액트 엘리먼트는 불변객체(immutable)이다.
+        엘리먼트를 생성한 이후에는 해당 엘리먼트의 자식이나 속성을 변경할 수 없다.
+        (엘리먼트는 영화에서 하나의 프레임처럼 특정 시점의 UI를 나타낸다.)
+
+        따라서 엘리먼트를 업데이트 하기 위해서는
+        완전히 새로운 엘리먼트를 만들고 ReactDOM.render로 다시 렌더링하는 방식을 이용한다.
+    -->
+
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.querySelector('#root'));
+
+        function tick() {
+            const element = (
+                <>
+                    <h1>What time is it now?</h1>
+                    <h3>It is {new Date().toLocaleTimeString()}</h3>
+                </>
+            );
+
+            root.render(element);
+        }
+
+        setInterval(tick, 1000);
+    </script>
+</body>
+
+</html>
