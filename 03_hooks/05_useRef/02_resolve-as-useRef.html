@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script src='https://unpkg.com/react@18/umd/react.development.js' crossorigin></script>
+    <script src='https://unpkg.com/react-dom@18/umd/react-dom.development.js' crossorigin></script>
+    <script src='https://unpkg.com/@babel/standalone/babel.min.js'></script>
+</head>
+
+<body>
+    <div id='root'></div>
+    <script type='text/babel'>
+        const { useState, useRef } = React;
+
+        function Counter() {
+            const [count, setCount] = useState(0);
+
+            let variable = 0;
+
+            const countRef = useRef(0);
+
+            const increaseCount = () => {
+                setCount(count + 1);
+            };
+
+            /* 지역 변수에 변화를 줘도 update에 해당하지 않으므로 unmount 및 mount가 일어나지 않아 화면 변화 없음 */
+            /* 지역 변수는 렌더링이 새롭게 일어날 때마다 초기화됨 */
+            const increaseVariable = () => {
+                variable += 1;
+                console.log('variable: ', variable);
+            };
+
+            /* useRef에 변화를 줘도 update에 해당하지 않으므로 unmount 및 mount가 일어나지 않아 화면 변화 없음 */
+            /* useRef가 추적하는 대상은 렌더링이 새롭게 일어날 때 초기화되지 않고 유지됨 */
+            const increaseCountRef = () => {
+                countRef.current = countRef.current + 1;
+                console.log('countRef.current: ', countRef.current);
+            }
+
+            return (
+                <>
+                    <h1>count: {count}</h1>
+                    <h1>variable: {variable}</h1>
+                    <h1>countRef: {countRef.current}</h1>
+                    <button onClick={increaseCount}>count up</button>
+                    <button onClick={increaseVariable}>variable up</button>
+                    <button onClick={increaseCountRef}>countRef up</button>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.querySelector('#root')).render(<Counter />);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script src='https://unpkg.com/react@18/umd/react.development.js' crossorigin></script>
+    <script src='https://unpkg.com/react-dom@18/umd/react-dom.development.js' crossorigin></script>
+    <script src='https://unpkg.com/@babel/standalone/babel.min.js'></script>
+    <script src='https://unpkg.com/redux@4.2.1/dist/redux.js'></script>
+    <script src='https://unpkg.com/react-redux@8.1.3/dist/react-redux.js'></script>
+    <script src='https://unpkg.com/redux-actions@2.6.5/dist/redux-actions.js'></script>
+    <script src='https://unpkg.com/redux-logger@3.0.6/dist/redux-logger.js'></script>
+</head>
+
+<body>
+    <div id='root'></div>
+    <script type='text/babel'>
+
+        const logger = reduxLogger.createLogger();
+
+        const consoleLoggingMiddleware = store => next => action => {
+            console.log('[custom middleware start]');
+            console.log(action);
+            console.log('[custom middleware end]');
+            const result = next(action);
+
+            return result;
+        };
+
+        /* -------------------------------------------------- */
+
+        /* module */
+        const { createActions, handleActions } = ReduxActions;
+
+        /* 초기값 */
+        const initialState = 0;
+
+        /* action */
+        const INCREMENT = 'count/INCREASE';
+        const DECREMENT = 'count/DECREASE';
+
+        const { count: { increase, decrease } } = createActions({
+            [INCREMENT]: (amount = 1) => ({ incrementValue: amount }),
+            [DECREMENT]: (amount = 1) => ({ decrementValue: amount })
+        });
+
+        /* reducer */
+        const reducer = handleActions({
+            [INCREMENT]: (state, { payload: { incrementValue } }) => state + incrementValue,
+            [DECREMENT]: (state, { payload: { decrementValue } }) => state - decrementValue
+        }, initialState);
+
+
+        /* -------------------------------------------------- */
+
+        /* UI (component) */
+        const { useSelector, useDispatch } = ReactRedux;
+
+        function App() {
+            const count = useSelector(state => state);
+            const dispatch = useDispatch();
+
+            const increaseCount = () => dispatch(increase());
+            const decreaseCount = () => dispatch(decrease());
+
+            return (
+                <>
+                    <h1>count: {count}</h1>
+                    <button onClick={increaseCount}>증가</button>
+                    <button onClick={decreaseCount}>감소</button>
+                </>
+            );
+        }
+
+        /* -------------------------------------------------- */
+
+        /* store */
+        const { createStore, applyMiddleware } = Redux;
+        const store = createStore(reducer, applyMiddleware(logger, consoleLoggingMiddleware));
+
+        /* -------------------------------------------------- */
+
+        const { Provider } = ReactRedux;
+
+        ReactDOM.createRoot(document.querySelector('#root')).render(
+            <Provider store={store}>
+                <App />
+            </Provider>
+        );
+
+    </script>
+</body>
+
+</html>

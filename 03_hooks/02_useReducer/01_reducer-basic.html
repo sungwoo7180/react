@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+    <script src='https://unpkg.com/react@18/umd/react.development.js' crossorigin></script>
+    <script src='https://unpkg.com/react-dom@18/umd/react-dom.development.js' crossorigin></script>
+    <script src='https://unpkg.com/@babel/standalone/babel.min.js'></script>
+</head>
+
+<body>
+    <div id='root'></div>
+    <script type='text/babel'>
+
+        /* useState 사용 (각 컴포넌트 내에서 state를 관리(수정)하는 경우) */
+        /* 
+        const { useState } = React;
+
+        function Counter() {
+            const [state, setState] = useState({
+                value: 0
+            });
+
+            return (
+                <>
+                    <h1>count: {state.value}</h1>
+                    <button onClick={() => setState({ value: state.value - 1 })}>- 1</button>
+                    <button onClick={() => setState({ value: state.value + 1 })}>+ 1</button>
+                </>
+            );
+        }
+        */
+
+        /* useReducer 사용 (외부 함수(reducer)에서 state를 action에 따라 관리(수정)하는 경우) */
+        const { useReducer } = React;
+
+        /* 
+            [ reduce 함수의 매개변수 ]
+            - 첫 번째 인자: state (변경해야 하는 대상 state)
+            - 두 번째 인자: action (변경해야 하는 내용과 관련된 사항)        
+        */
+        function reducer(state, action) {
+            console.log(state);
+            console.log(action);
+
+            switch (action.type) {
+                case 'DECREMENT':
+                    return { value: state.value - 1 };
+                case 'INCREMENT':
+                    return { value: state.value + 1 };
+                default:
+                    return state;
+            }
+        }
+
+        function Counter() {
+
+            // console.log(useReducer(reducer, { value: 0 }));
+
+            /* 
+                [ useReducer() 인자 ]
+                - 첫 번째 인자: state 값을 변경할 로직이 모인 reduce 함수
+                - 두 번째 인자: 관리될 state의 초기값
+
+                [ useReducer()의 반환 배열 ]
+                - 첫 번째 요소: 초기화 해준 state 값
+                - 두 번째 요소: state를 변경하는 함수를 간접적으로 호출하는 기능을 제공하는 함수
+                               (통상적으로 disaptch 라는 이름으로 사용)
+            */
+
+            const [state, dispatch] = useReducer(reducer, { value: 0 });
+
+            return (
+                <>
+                    <h1>count: {state.value}</h1>
+                    <button onClick={() => dispatch({ type: 'DECREMENT' })}>- 1</button>
+                    <button onClick={() => dispatch({ type: 'INCREMENT' })}>+ 1</button>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.querySelector('#root')).render(<Counter />);
+    </script>
+</body>
+
+</html>
