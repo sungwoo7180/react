@@ -24,7 +24,7 @@
                     () => console.log(new Date().toLocaleTimeString())
                     , 1000
                 );
-
+                // 메모리 누수를 방지 하기 위해서 unmount 시점에 clearInterval 을 실행한다.
                 return () => {
                     clearInterval(timer);
                     console.log('Timer 종료-----');

@@ -24,7 +24,7 @@
                 console.log('useEffect() mount 시점에만 동작!');
             },
             []);
-
+            // useEffect 는 비동기 방식으로 서버에 데이터를 요청하는 경우에 대부분 사용하고 있기 때문에 중요함.
             return (
                 <>
                     <button onClick={() => setTime(new Date().toLocaleTimeString())}>현재 시간은?!</button>

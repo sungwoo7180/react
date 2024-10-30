@@ -13,14 +13,15 @@
 <body>
     <div id="root"></div>
     <!--
-        리액트 엘리먼트는 불변객체(immutable)이다.
+        리액트 엘리먼트는 불변객체(immutable)이다. ( 불변 : 한번 만들어지면 변경 할 수 없음 )
         엘리먼트를 생성한 이후에는 해당 엘리먼트의 자식이나 속성을 변경할 수 없다.
         (엘리먼트는 영화에서 하나의 프레임처럼 특정 시점의 UI를 나타낸다.)
 
         따라서 엘리먼트를 업데이트 하기 위해서는
-        완전히 새로운 엘리먼트를 만들고 ReactDOM.render로 다시 렌더링하는 방식을 이용한다.
+        완전히 새로운 엘리먼트를 만들고 ReactDOM.render 로 다시 렌더링하는 방식을 이용한다.
     -->
-
+    <!-- 렌더링을 반복적으로 할때 화면이 바뀔때마다 렌더링을 새롭게 해주게 되죠.
+    react element 로 render tree 를 만들게 됩니다. 이후 과정이 렌더링  -->
     <script type="text/babel">
         const root = ReactDOM.createRoot(document.querySelector('#root'));
 
@@ -34,7 +35,7 @@
 
             root.render(element);
         }
-
+        // 변화가 일어나는 부분만 element 를 다시 랜더링해줌.
         setInterval(tick, 1000);
     </script>
 </body>

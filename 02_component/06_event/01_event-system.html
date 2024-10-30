@@ -15,7 +15,7 @@
 
     <!--
         [ 리액트의 이벤트 시스템 ]
-        리액트의 이벤트 시스템은 웹 브라우저의 HTML이벤트와 인터페이스가 동일하므로 사용 방법이 거의 유사하다.
+        리액트의 이벤트 시스템은 웹 브라우저의 HTML 이벤트와 인터페이스가 동일하므로 사용 방법이 거의 유사하다.
         하지만 몇 가지 주의사항이 있다.
 
         [ 주의사항 ]
@@ -25,8 +25,8 @@
             html -> <button onclick="alert('hello!')">클릭</button>
             react -> <button onClick={() => alert('hello!')}>클릭</button>
         3. DOM 요소에만 이벤트를 설정할 수 있다.
-            컴포넌트에 onClick이라고 해서 전달하면 props 객체에 담기는 값이 될 뿐이다.
-            하지만 컴포넌트 내부에서 props에 전달되어 온 함수를 이벤트 핸들러로 추가할 수 있다.
+            컴포넌트에 onClick 이라고 해서 전달하면 props 객체에 담기는 값이 될 뿐이다.
+            하지만 컴포넌트 내부에서 props 에 전달되어 온 함수를 이벤트 핸들러로 추가할 수 있다.
             <button onClick={this.props.onClick}>클릭</button>
     -->
 
@@ -46,7 +46,7 @@
 
             /* 2. render 함수 외부에 이벤트 핸들러 함수 정의 후 함수 전달하여 이벤트 연결 */
             // onClickHandler = () => alert('외부 함수 이벤트 동작 확인!');
-
+            //
             // render() {
             //     return (
             //         <button onClick={this.onClickHandler}>{this.props.children}</button>
@@ -67,7 +67,8 @@
 
         ReactDOM.createRoot(document.querySelector('#root')).render(
             // <EventButton>Event Button</EventButton>
-            <EventButton onClick={() => alert('props로 전달한 이벤트 동작 확인!')}>EVENT BUTTON</EventButton>
+            // 어려움 이해 못함 7-1 22분
+            <EventButton onClick={() => alert('props 로 전달한 이벤트 동작 확인!')}>EVENT BUTTON</EventButton>
         );
     </script>
 </body>

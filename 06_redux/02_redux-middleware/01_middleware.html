@@ -23,7 +23,7 @@
             action ㅡㅡㅡㅡㅡ> middleware ㅡㅡㅡㅡㅡ> reducer ㅡㅡㅡㅡ> store
 
             특정 조건에 따라 action 무시 및 추가 작업, 수정, 로깅, 트리거 액션, 함수 호출 등을 수행하도록 할 수 있다.
-            비동기 관련 미들웨어 라이브러리로 많이 사용되는 것은 redux-thunk, redux-saga가 있다.
+            비동기 관련 미들웨어 라이브러리로 많이 사용되는 것은 redux-thunk, redux-saga 가 있다.
 
             < 미들웨어 작성 >
             const middleware = store => next => action => {
@@ -40,10 +40,10 @@
         */
 
         const consoleLoggingMiddleware = store => next => action => {
-            console.log(action);            // action을 출력하는 로그 기능
-            const result = next(action);    // 다음 미들웨어 혹은 reducer에게 action 전달
+            console.log(action);            // action 을 출력하는 로그 기능
+            const result = next(action);    // 다음 미들웨어 혹은 reducer 에게 action 전달
 
-            return result;                  // 반환하는 result는 dispatch(action)의 결과물
+            return result;                  // 반환하는 result 는 dispatch(action)의 결과물
         };
 
         /* -------------------------------------------------- */

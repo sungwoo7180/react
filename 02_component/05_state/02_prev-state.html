@@ -14,8 +14,10 @@
     <div id="root"></div>
 
     <!--
-        [ prevState를 활용한 setState 함수 사용 ]
-        this.setState()를 사용하면 비동기방식으로 state가 백그라운드에서 업데이트 된다.
+        React 에서는 (state 가 변경 되는지 감지하고 있다가 ) setState 를 통해서 state 가 변경되면  매번 render()를 재호출 ( Re-rendering )
+        [ setState() 함수 ]
+        [ prevState 를 활용한 setState 함수 사용 ]
+        this.setState()를 사용하면 비동기방식으로 state 가 백그라운드에서 업데이트 된다.
         하나의 이벤트 핸들러에서 여러 번 setState() 호출한다고 해도 동기적으로 누적해서 변화를 취급하지 못한다.
         이를 해결할 방법은 변경할 state 객체 대신 함수를 인자로 전달하는 것이다.
         전달하는 콜백함수의 첫 번째 인자는 이전 상태 값을 가리키는 prevState이며, 두 번째 인자는 현재 컴포넌트의 props이다.
@@ -25,13 +27,17 @@
     <script type="text/babel">
 
         class Counter extends React.Component {
+            // state 는 전역변수에 해당하기 떄문에 생성자 없이도 초기화 해줄 수 있음.
+            // constructor 안에서는 this. , 전역변수는 생성 전후를 따지지 않기 때문에 this 를 사용할 수 없습니다.
+            // 생성된 객체를 참조하는 reference 변수
             state = {
                 number: 7
             };
-
+            // 반드시 작성해야 하는 render() 함수
+            // state 는 전역으로 선언 할 떄는 this. 를 사용하지 않지만 함수내에서 사용해줘야 할때는 내가 가진 state 나라는 객체가 가진 state 임을 가르쳐주기 위해 this. 을 붙여줘야 한다.
             render() {
-                // console.log(this);
-                const { number } = this.state;
+                console.log(this);
+                const { number } = this.state;  // 구조 분할
 
                 return (
                     <>
@@ -41,11 +47,24 @@
                         <button onClick={() => this.setState({ number: number - 1 })}>-1</button>
                         <button
                             onClick={() => {
-                                // this.setState({ number: number + 1 });
-                                // console.log("first", number);
-                                // this.setState({ number: number + 1 });
-                                // console.log("second", number);
+                                /*
+                                this.setState({ number: number + 1 });
+                                console.log("first", number);
+                                // 1을 올렸는데 7이 출력
+                                this.setState({ number: number + 1 });
+                                console.log("second", number);
+                                */
 
+                                // 심지어 한번더 1을 더 올렸는데 7이 출력. state 가 변경되는 시점은 렌더링 후임.
+                                // state 에는 여전히 7이고 메모리에 8을 저장 state 의 변화를 인지하고 렌더링 후에 8로 변경 하면서 state 도 8로 변경.
+                                // 결국 : setState 는 메모리상에서 변화를 가지고 가지고 있다가, 값을 누적하지 않죠.
+                                // 메모리 상에서 임시로 기억하고 있다가 새롭게 렌더링 할때 실제 반영됨. 한번에 이벤트 동작에서 여러번 setState 해도 의미가 없어요.
+                                // 누산 적용 해주고 싶다. 한다면 setState 한테 콜백함수를 전달합니다.
+
+
+                                // 아까는 변경해준 state 객체를 인자로 줬다면 setState 안쪽에 화살표 함수를
+                                // 첫번째 인자로 prevState : 상태(state)를 변경시킨 다음에 실제 state 의 변경된 값
+                                // 메모리 상에서 가지고 있는 state
                                 this.setState((prevState, props) => {
                                     return {
                                         number: prevState.number + 1
@@ -57,7 +76,10 @@
                                         number: prevState.number + 1
                                     };
                                 });
-
+                                // 화살표 함수에서는 매게변수가 하나이면 소괄호를 생력할 수 있고요. (prevState) -> prevState
+                                // 실행 해줄 함수가 한줄이면 중괄호도 생략 가능합니다.
+                                // 한줄만 실행할떄는 return 도 생략 가능.
+                                // 반환해주는 값이 객체라면 { } 중괄호를 코드 블록의 중괄호로 인지하기 때문에 소괄호르 붙여서 써줬음.
                                 this.setState((prevState) => {
                                     return {
                                         number: prevState.number + 1

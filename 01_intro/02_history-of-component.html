@@ -19,6 +19,7 @@
         */
 
         /* 클래스형 컴포넌트 */
+        // 가독성이 떨어진다는 단점이 있어 잘 안 쓰임
         // class HelloWorld extends React.Component {
         //     render() {
         //         return React.createElement(
@@ -31,7 +32,7 @@
 
         /* 함수형 컴포넌트 */
         function HelloWorld() {
-            return React.createElement('h1', { className: 'greeting' }, 'Hello World!!!');
+            return React.createElement('h1', { className:   'greeting' }, 'Hello World!!!');
         }
 
         ReactDOM.createRoot(document.querySelector('#root')).render(React.createElement(HelloWorld));

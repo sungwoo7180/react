@@ -27,15 +27,15 @@
                 setCount(count + 1);
             };
 
-            /* 지역 변수에 변화를 줘도 update에 해당하지 않으므로 unmount 및 mount가 일어나지 않아 화면 변화 없음 */
+            /* 지역 변수에 변화를 줘도 update 에 해당하지 않으므로 unmount 및 mount 가 일어나지 않아 화면 변화 없음 */
             /* 지역 변수는 렌더링이 새롭게 일어날 때마다 초기화됨 */
             const increaseVariable = () => {
                 variable += 1;
                 console.log('variable: ', variable);
             };
 
-            /* useRef에 변화를 줘도 update에 해당하지 않으므로 unmount 및 mount가 일어나지 않아 화면 변화 없음 */
-            /* useRef가 추적하는 대상은 렌더링이 새롭게 일어날 때 초기화되지 않고 유지됨 */
+            /* useRef 에 변화를 줘도 update 에 해당하지 않으므로 unmount 및 mount 가 일어나지 않아 화면 변화 없음 */
+            /* useRef 가 추적하는 대상은 렌더링이 새롭게 일어날 때 초기화되지 않고 유지됨 */
             const increaseCountRef = () => {
                 countRef.current = countRef.current + 1;
                 console.log('countRef.current: ', countRef.current);

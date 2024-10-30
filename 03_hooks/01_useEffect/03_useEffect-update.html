@@ -15,10 +15,10 @@
     <div id='root'></div>
     <script type='text/babel'>
 
-        const { useState, useEffect } = React;
+        const { useState, useEffect } = React;  // 구조 분해 할당
 
         function LoginForm() {
-
+            // 두개의 프로퍼티가 빈 문자열인 객체로 초기화
             const [user, setUser] = useState({
                 username: '',
                 password: ''
@@ -30,7 +30,8 @@
                     [e.target.name]: e.target.value
                 });
             };
-
+            // 마운트 된 시점과 업데이트 된 시점 모두 직후에 동작하기 때문에 특정 요소가 아니라 전체 반응에 반응함.
+            // 특정 요소에만 반응 하기 위해서는 어떤애 한테 집중하는지 두번째 인자에 의존성 배열으로 [user.username], [user.password] 이런식으로 표기
             useEffect(
                 () => console.log('username update...'),
                 [user.username]

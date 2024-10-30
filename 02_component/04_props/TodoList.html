@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>할 일 목록</title>
+    <script
+            src="https://unpkg.com/react@18/umd/react.development.js"
+            crossorigin
+    ></script>
+    <script
+            src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+            crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .header, .footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        .todo-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .todo-item input {
+            margin-right: 10px;
+        }
+        .todo-item.completed {
+            text-decoration: line-through;
+        }
+        .todo-item .delete-btn {
+            color: red;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .add-todo {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+    class Header extends React.Component {
+        render() {
+            return <div className="header">오늘의 할일! 2024. 10. 14.</div>;
+        }
+    }
+
+    class Footer extends React.Component {
+        render() {
+            return <div className="footer">Copyright 2022. team-sungwoo all rights reserved.</div>;
+        }
+    }
+
+    class TodoItem extends React.Component {
+        render() {
+            const { text, completed, onToggle, onDelete } = this.props;
+
+            return (
+                <div className={`todo-item ${completed ? 'completed' : ''}`}>
+                    <div>
+                        <input
+                            type="checkbox"
+                            checked={completed}
+                            onChange={onToggle}
+                        />
+                        {text}
+                    </div>
+                    <div className="delete-btn" onClick={onDelete}>❌</div>
+                </div>
+            );
+        }
+    }
+
+    class TodoList extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                todos: [
+                    { id: 1, text: '할일 목록을 추가할 것', completed: false }
+                ],
+                newTodo: ''
+            };
+        }
+
+        handleToggle = (id) => {
+            this.setState({
+                todos: this.state.todos.map(todo =>
+                    todo.id === id
+                        ? { ...todo, completed: !todo.completed }
+                        : todo
+                )
+            });
+        };
+
+        handleDelete = (id) => {
+            this.setState({
+                todos: this.state.todos.filter(todo => todo.id !== id)
+            });
+        };
+
+        handleAddTodo = () => {
+            if (this.state.newTodo.trim() === '') return;
+
+            const newTodoItem = {
+                id: Date.now(),
+                text: this.state.newTodo,
+                completed: false
+            };
+
+            this.setState({
+                todos: [...this.state.todos, newTodoItem],
+                newTodo: ''
+            });
+        };
+
+        handleInputChange = (e) => {
+            this.setState({ newTodo: e.target.value });
+        };
+
+        render() {
+            return (
+                <div className="container">
+                    <div className="todo-header">ToDo-List</div>
+                    {this.state.todos.map(todo => (
+                        <TodoItem
+                            key={todo.id}
+                            text={todo.text}
+                            completed={todo.completed}
+                            onToggle={() => this.handleToggle(todo.id)}
+                            onDelete={() => this.handleDelete(todo.id)}
+                        />
+                    ))}
+                    <div className="add-todo">
+                        <input
+                            type="text"
+                            value={this.state.newTodo}
+                            onChange={this.handleInputChange}
+                            placeholder="새 할 일 추가"
+                        />
+                        <button onClick={this.handleAddTodo}>추가하기</button>
+                    </div>
+                </div>
+            );
+        }
+    }
+
+    class App extends React.Component {
+        render() {
+            return (
+                <div>
+                    <Header />
+                    <TodoList />
+                    <Footer />
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.createRoot(document.querySelector('#root')).render(<App />);
+</script>
+</body>
+</html>

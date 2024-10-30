@@ -14,40 +14,47 @@
     <div id="root"></div>
     <!--
         [ state ]
-        state는 컴포넌트 내부에서 바꿀(바뀔) 수 있는 값을 의미한다.
-        props는 컴포넌트가 사용되는 과정에서 부모 컴포넌트가 설정하고 주는 읽기 전용 값이지만
-        state는 컴포넌트 내부에서 설정되는 값이다.
-        우리는 state의 변경되는 값을 관리하며 다양한 작업을 진행할 수 있다.
+        state 는 컴포넌트 내부에서 바꿀(바뀔) 수 있는 값을 의미한다.
+        props 는 컴포넌트가 사용되는 과정에서 부모 컴포넌트가 설정하고 주는 읽기 전용 값이지만
+        state 는 컴포넌트 내부에서 설정되는 변경이 가능한 값이다.
+        우리는 state 의 변경되는 값을 관리하며 다양한 작업을 진행할 수 있다.
 
-        리액트는 클래스형 컴포넌트에서 state를 직접 사용할 수 있다.
-        하지만 함수형 컴포넌트에서는 직접 state를 사용하는 것이 불가능하다.
-        따라서 함수형 컴포넌트에서도 state를 관리할 수 있는 기능은 useState라는 hooks로 제공한다.
+        리액트는 클래스형 컴포넌트에서 state 를 직접 사용할 수 있다.
+        ** 하지만 함수형 컴포넌트에서는 직접 state 를 사용하는 것이 불가능하다. **
+        *** 따라서 함수형 컴포넌트에서도 state 를 관리할 수 있는 기능은 useState 라는 hooks 로 제공한다. ***
     -->
     <script type="text/babel">
 
         class Counter extends React.Component {
+            //
             constructor(props) {
 
                 super(props);
 
-                /* 
-                    [ 생성자 안에서 state를 사용하는 방법 ]
-                    1. state는 this.을 명시해야 한다.
-                    2. 이름은 반드시 state여야 한다.
-                    3. state에 저장되는 값의 형태는 반드시 Object 리터럴 형태로 작성해야 한다.
+                /*
+                    props 는 부모한테 받은 값, state 는 내부에서 관리하기 위해 사용해주는 것.
+                    [ 생성자 안에서 state 를 사용하는 방법 ]
+                    1. state 는 this.을 명시해야 한다.
+                    2. 이름은 반드시 state 여야 한다.
+                    3. state 에 저장되는 값의 형태는 반드시 Object 리터럴 형태로 작성해야 한다.
+                    state 를 지정할 수 있음.
                 */
+                // new 를 통해서 객체 (instance) 가 생성 되었을 때, 객체를 가르키는 것이 this
+                // this.state => state 를 변경하기 위한 setState() 함수가 함께 추가됨.
                 this.state = {
                     number: 7
                 };
             }
 
+            // 새롭게 렌더링 될때마다 호출됨. 컴포넌트 안에서 단순 변수로는 변화하는 값을 관리 할 수 없습니다.
+            // i 는 계속 해서 0임. state 라는 애를 사용해야 컴포넌트 안에서 변화하는 값을 관리 해서 수정 할 수 있음.
             render() {
                 // const number = this.state.number;
                 const { number } = this.state;
 
                 let i = 0;
                 console.log('render() 호출', i++);
-
+                // setState 는 인자로 객체를 전달해주고 있죠. 이 객체는 업데이트 할 상태를 지정해주는 객체입니다. 형태는 위랑 같게.
                 return (
                     <>
                         <h1>{number}</h1>

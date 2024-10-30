@@ -15,21 +15,24 @@
 
     <script type="text/babel">
 
+        // T : 구조 분해 할당을 좀 더 상세히 보도록 하겠습니다.
+
         /* 1. 전달받은 props 인자를 컴포넌트 내부에서 구조 분해 할당을 이용해 사용 */
-        // function PropsPrinter(props) {
 
-        //     const { name, children } = props;
+        function PropsPrinter1(props) {
 
-        //     return (
-        //         <>
-        //             <h1>{name}님이 말씀하십니다!</h1>
-        //             <h3>"{children}"</h3>
-        //         </>
-        //     );
-        // }
+            const { name, children } = props;
+
+            return (
+                <>
+                    <h1>{name}님이 말씀하십니다!</h1>
+                    <h3>"{children}"</h3>
+                </>
+            );
+        }
 
         /* 2. 매개변수에서 구조 분해 할당을 이용해 사용 */
-        function PropsPrinter({ name, children }) {
+        function PropsPrinter2({ name, children }) {
             return (
                 <>
                     <h1>{name}님이 말씀하십니다!</h1>
@@ -39,7 +42,7 @@
         }
 
         ReactDOM.createRoot(document.querySelector("#root")).render(
-            <PropsPrinter name="다람쥐">행복한 화요일이에요 여러분~!</PropsPrinter>
+            <PropsPrinter2 name="다람쥐">행복한 화요일이에요 여러분~!</PropsPrinter2>
         );
 
     </script>

@@ -14,17 +14,19 @@ function Navbar() {
 
     return (
         <ul>
+            {/*묘하게 깜빡임*/}
             {/* 
                 <li><a href={"/"}>HOME</a></li>
                 <li><a href={"/mypage"}>MyPage</a></li>
                 <li><a href={"/login"}>LOGIN</a></li> 
             */}
+            {/*link 는 좀더 스무스 함*/}
             {/* 
                 <li><Link to="/">HOME</Link></li>
                 <li><Link to="/mypage">MyPage</Link></li>
                 <li><Link to="/login">LOGIN</Link></li> 
             */}
-            {/* 
+            {/*
                 <li><NavLink to="/" style={({ isActive }) => isActive ? activeStyle : undefined}>HOME</NavLink></li>
                 <li><NavLink to="/mypage" style={({ isActive }) => isActive ? activeStyle : undefined}>MyPage</NavLink></li>
                 <li><NavLink to="/login" style={({ isActive }) => isActive ? activeStyle : undefined}>LOGIN</NavLink></li>

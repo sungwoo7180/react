@@ -19,17 +19,29 @@
 
         function LoginComponent() {
 
+            // userState 가지고 선언을 해줄때 username, password 각 각 빈문자열로 만들어준게 아니라 객체로
+            // state = {
+            //     username: '',
+            //     password: ''
+            // } <= 이거랑 비슷한 형태가 되었죠
             const [form, setForm] = useState({
                 username: '',
                 password: ''
             });
-
+            // 구조 분할 할당을 통해 form 객체의 username, password 값을 각각 변수에 할당
             const { username, password } = form;
 
             const onChangeHandler = e => {
                 const changedForm = {
+                    // rest parameter 를 사용하여 form 객체의 모든 속성을 복사
                     ...form,
+                    /*
+                        username : 'asdf',
+                        password : '1234'
+                    * */
                     [e.target.name]: e.target.value
+                    // username 에서 변화가 일어났다. -> username : 'asdf1234' - 뒤쪽에 들어온걸로 덮어 씌어진다.
+
                 };
 
                 console.log(changedForm);

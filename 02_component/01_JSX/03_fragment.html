@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!--CDN?-->
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -32,7 +33,9 @@
         //     <h3>hobby: {user.hobby}</h3>
         // );
 
-        /* 2. <div> 태그로 감싸서 하나의 돔 트리 생성 */
+        // /* 2. <div> 태그로 감싸서 하나의 돔 트리 생성 */
+        // 문제 : div 가 논리적으로 필요한 요소는 X => 복잡성을 증가
+
         // const element = (
         //     <div>
         //         <h1>Hello {user.name}</h1>
@@ -40,7 +43,9 @@
         //     </div>
         // );
 
+        // 해결책 : Fragment 사용
         /* 3. <React.Fragment>로 감싸서 형식상 돔 트리의 상위 엘리먼트 생성 */
+        // 묶어주기만 하고 실제 태그로 추가 되지는 않음.
         // const element = (
         //     <React.Fragment>
         //         <h1>Hello {user.name}</h1>
@@ -49,6 +54,7 @@
         // );
 
         /* 4. React 라이브러리로부터 Fragment 객체만 구조분해 할당을 해주면 React. 생략 가능 */
+        // React 객체가 가는것 중에 Fragment 만 꺼내주고
         // const {Fragment} = React;
         // const element = (
         //     <Fragment>

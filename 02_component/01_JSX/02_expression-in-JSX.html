@@ -24,7 +24,7 @@
         };
 
         const element = <h1>Hello, {formatName(user)}</h1>;
-
+        // {} 를 쓰는것 자체가 JSX 표현식, 안에는 변수나 함수를 넣을 수 있다.
         ReactDOM.createRoot(document.querySelector('#root')).render(element);
     </script>
 </body>

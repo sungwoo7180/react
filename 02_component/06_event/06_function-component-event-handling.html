@@ -19,9 +19,11 @@
 
         function LoginComponent() {
 
+            // userState 가지고 선언을 해줄때 username, password 각 각 빈문자열로 만들어줌.
             const [username, setUsername] = useState('');
             const [password, setPassword] = useState('');
 
+            // 클래스형 컴포넌트랑 다르게 얘네둘 set 는 이름이 다르기 때문에 합쳐줄 수 없다.
             const onChangeUsername = e => setUsername(e.target.value);
             const onChangePassword = e => setPassword(e.target.value);
             const onClickHandler = () => {

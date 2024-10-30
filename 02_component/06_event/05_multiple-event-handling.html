@@ -17,30 +17,32 @@
 
         class LoginComponent extends React.Component {
 
+            // 전역변수로 빈문자열을 가지는 객체
             state = {
                 username: '',
                 password: ''
             }
 
+            // e.target -> 현재 이벤트가 발생한 input tag 를 가르키죠.
             // onIdChangeHandler = e => {
             //     this.setState({
             //         username: e.target.value
             //     });
             // }
-
+            //
             // onPwdChangeHandler = e => {
             //     this.setState({
             //         password: e.target.value
             //     });
             // }
 
-            onChangeHandler = e => {
-                console.log(e.target.name);
-                this.setState({
-                    [e.target.name]: e.target.value
-                });
-            }
-
+                onChangeHandler = e => {
+                    console.log(e.target.name);
+                    this.setState({
+                        [e.target.name]: e.target.value
+                    });
+                }
+            //
             onClickHandler = e => {
                 alert(`username: ${this.state.username}\npassword: ${this.state.password}`);
                 this.setState({

@@ -38,7 +38,9 @@
                     <>
                         <div style={style}></div>
                         <button
+                            // event handler
                             onClick={() => {
+                                // 첫번째 인자로는 변경할 state 의 값, 두번째 인자로는 콜백함수(setState 이후에 동작할)
                                 this.setState(
                                     { isOn: !isOn },
                                     () => console.log(isOn ? '불이 꺼졌습니다' : '불이 켜졌습니다')

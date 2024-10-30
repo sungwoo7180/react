@@ -15,18 +15,21 @@
 
     <!--
         [ props.children ]
-        리액트 컴포넌트를 사용할 때, 자식 노드 즉 태그 사이의 내용을 props의 children 속성에서 관리한다.
+        리액트 컴포넌트를 사용할 때, 자식 노드 즉 태그 사이의 내용을 props 의 children 속성에서 관리한다.
     -->
 
     <script type="text/babel">
+    <!-- 구조 분해 할당 -->
         function ChildNodePrinter({ children }) {
             // console.log(props.children);
 
             return (
                 <>
                     <h1>자식 노드가 가진 값은?</h1>
+
                     {/* <h3>children: <font style={{ color: 'green' }}>{props.children}</font></h3> */}
-                    <h3>children: <font style={{ color: 'green' }}>{children}</font></h3>
+
+                    <h3>children: <font style={{ color: 'green' }}>{children}</font></h3> {/* 구조 분해 할당으로 변경 */}
                 </>
             );
         }

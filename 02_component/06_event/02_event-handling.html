@@ -30,6 +30,7 @@
                             name="message"
                             placeholder="input text..."
                             onChange={
+                                // 매개변수로 받는 e 는 event 자체에 대한 정보입니다.
                                 (e) => {
                                     console.log(e.target.value);
                                     this.setState({ message: e.target.value });
